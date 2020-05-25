@@ -15,7 +15,7 @@ resource "aws_ecs_cluster" "ecs" {
 # S3 bucket that holds the ECS Cluster configuration
 #-------------------------------------------------------------------------------
 resource "aws_s3_bucket" "ecs_config" {
-  bucket        = "lic-ecs-${var.env}"
+  bucket        = "ecs-config-${var.env}"
   force_destroy = true
 
   versioning {
@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "ecs_config" {
   }
 
   tags {
-    Name        = "LIC ECS Configuration"
+    Name        = "ECS Configuration ${ver.env}"
     Environment = "${var.environment}"
   }
 }

@@ -9,7 +9,7 @@ aws s3 cp s3://${s3_bucket_name}/ecs.config /etc/ecs/ecs.config
 
 # Write the cluster configuration variable to the ecs.config file
 # (add any other configuration variables here also)
-echo ECS_INSTANCE_ATTRIBUTES={"\"lic.stack\"":"\"${lic_stack}\""} >> /etc/ecs/ecs.config
+echo ECS_INSTANCE_ATTRIBUTES={"stack\"":"\"${stack}\""} >> /etc/ecs/ecs.config
 
 --==BOUNDARY==
 MIME-Version: 1.0

@@ -20,8 +20,8 @@ data "template_file" "ecs_instance_user_data" {
 
   vars {
     efs_file_system_name = "efs-${var.env}"
-    s3_bucket_name       = "lic-ecs-${var.env}"
-    lic_stack            = "ECS-${var.cluster_name}"
+    s3_bucket_name       = "ecs-config-${var.env}"
+    stack            = "ECS-${var.cluster_name}"
   }
 }
 
@@ -30,8 +30,8 @@ data "template_file" "ecs_spot_instance_user_data" {
 
   vars {
     efs_file_system_name = "efs-${var.env}"
-    s3_bucket_name       = "lic-ecs-${var.env}"
-    lic_stack            = "ECS-${var.cluster_name}"
+    s3_bucket_name       = "ecs-config-${var.env}"
+    stack            = "ECS-${var.cluster_name}"
   }
 }
 
@@ -40,7 +40,7 @@ data "template_file" "kafka_ecs_instance_user_data" {
 
   vars {
     efs_file_system_name = "efs-${var.env}"
-    s3_bucket_name       = "lic-ecs-${var.env}"
-    lic_stack            = "ECS-Kafka-${var.cluster_name}"
+    s3_bucket_name       = "ecs-config-${var.env}"
+    stack            = "ECS-Kafka-${var.cluster_name}"
   }
 }
