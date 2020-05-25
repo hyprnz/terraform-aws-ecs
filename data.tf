@@ -6,7 +6,7 @@
 # launch configurations.
 # -----------------------------------------------------------------------------
 data "aws_vpc" "ecs" {
-  id = "${var.vpc_id}"
+  id = var.vpc_id
 }
 
 #------------------------------------------------------------------------------
@@ -15,26 +15,26 @@ data "aws_vpc" "ecs" {
 #------------------------------------------------------------------------------
 
 data "aws_subnet_ids" "default" {
-  vpc_id = "${data.aws_vpc.ecs.id}"
+  vpc_id = data.aws_vpc.ecs.id
 
-  tags {
+  tags = {
     Tier        = "Private"
     M5Available = "True"
   }
 }
 
 data "aws_subnet_ids" "kafka" {
-  vpc_id = "${data.aws_vpc.ecs.id}"
+  vpc_id = data.aws_vpc.ecs.id
 
-  tags {
+  tags = {
     Tier = "Private"
   }
 }
 
 data "aws_subnet_ids" "private" {
-  vpc_id = "${data.aws_vpc.ecs.id}"
+  vpc_id = data.aws_vpc.ecs.id
 
-  tags {
+  tags = {
     Tier = "Private"
   }
 }
@@ -56,3 +56,4 @@ data "aws_ami" "ecs_optimized_ami" {
     values = ["amzn2-ami-ecs-hvm-2.0.????????-x86_64-ebs"]
   }
 }
+

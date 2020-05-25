@@ -25,7 +25,8 @@ variable "vpc_id" {
   description = "VPC to place the ECS Cluster resource into"
 }
 
-variable "iam_key_pair_name" {}
+variable "iam_key_pair_name" {
+}
 
 variable "iam_instance_profile_name" {
   default = "ecs_instance_profile"
@@ -105,7 +106,7 @@ variable "asg_kafka_desired_capacity" {
 
 variable "availability_zones" {
   description = "Availability zones to be used by the autoscaling group"
-  type        = "list"
+  type        = list(string)
 
   default = [
     "ap-southeast-2a",
@@ -143,10 +144,11 @@ variable "environment" {
 
 variable "data_template" {
   description = "Lookup for Data Templates based on use_efs_volumes"
-  type        = "map"
+  type        = map(string)
 
   default = {
     "1" = "ecs-efs-instance-user-data.tpl"
     "0" = "ecs-instance-user-data.tpl"
   }
 }
+
