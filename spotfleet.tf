@@ -23,7 +23,7 @@ resource "aws_spot_fleet_request" "ecs_workers" {
     subnet_id              = element(tolist(data.aws_subnet_ids.private.ids), 0)
     vpc_security_group_ids = [aws_security_group.ecs.id]
     iam_instance_profile   = var.iam_instance_profile_name
-    key_name               = var.iam_key_pair_name
+    # key_name               = var.iam_key_pair_name
     user_data              = data.template_file.ecs_spot_instance_user_data.rendered
     monitoring             = true
 
@@ -40,7 +40,7 @@ resource "aws_spot_fleet_request" "ecs_workers" {
     subnet_id              = element(tolist(data.aws_subnet_ids.private.ids), 1)
     vpc_security_group_ids = [aws_security_group.ecs.id]
     iam_instance_profile   = var.iam_instance_profile_name
-    key_name               = var.iam_key_pair_name
+    # key_name               = var.iam_key_pair_name
     user_data              = data.template_file.ecs_spot_instance_user_data.rendered
     monitoring             = true
 
@@ -57,7 +57,7 @@ resource "aws_spot_fleet_request" "ecs_workers" {
     subnet_id              = element(tolist(data.aws_subnet_ids.private.ids), 2)
     vpc_security_group_ids = [aws_security_group.ecs.id]
     iam_instance_profile   = var.iam_instance_profile_name
-    key_name               = var.iam_key_pair_name
+    # key_name               = var.iam_key_pair_name
     user_data              = data.template_file.ecs_spot_instance_user_data.rendered
     monitoring             = true
 
