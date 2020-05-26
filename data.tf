@@ -57,3 +57,4 @@ data "aws_ami" "ecs_optimized_ami" {
   }
 }
 
+data "aws_caller_identity" "current" {}

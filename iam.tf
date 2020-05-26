@@ -10,26 +10,26 @@
 # tasks, retrieving containers from ECR and log generation.
 #-------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_instance_role" {
-  count              = var.single_cluster_account ? 1 : 0
+  count              = var.single_cluster_account
   name               = "ecs_instance_role"
   assume_role_policy = file("${path.module}/policies/roles/ecs.json")
 }
 
 resource "aws_iam_role_policy" "ecs_instance_role_policy" {
-  count  = var.single_cluster_account ? 1 : 0
+  count  = var.single_cluster_account
   name   = "ecs_instance_role_policy"
   policy = file("${path.module}/policies/ecs-instance-role.json")
   role   = aws_iam_role.ecs_instance_role[0].id
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_instance_s3" {
-  count      = var.single_cluster_account ? 1 : 0
+  count      = var.single_cluster_account
   role       = aws_iam_role.ecs_instance_role[0].name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_instance_cloudwatch_logs" {
-  count      = var.single_cluster_account ? 1 : 0
+  count      = var.single_cluster_account
   role       = aws_iam_role.ecs_instance_role[0].name
   policy_arn = aws_iam_policy.ecs_cloudwatch_logs[0].arn
 }
@@ -42,13 +42,13 @@ resource "aws_iam_role_policy_attachment" "ecs_instance_cloudwatch_logs" {
 # with the ALB.
 #-------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_service_role" {
-  count              = var.single_cluster_account ? 1 : 0
+  count              = var.single_cluster_account
   name               = "ecs_service_role"
   assume_role_policy = file("${path.module}/policies/roles/ecs.json")
 }
 
 resource "aws_iam_role_policy" "ecs_service_role_policy" {
-  count  = var.single_cluster_account ? 1 : 0
+  count  = var.single_cluster_account
   name   = "ecs_service_role_policy"
   policy = file("${path.module}/policies/ecs-service-role.json")
   role   = aws_iam_role.ecs_service_role[0].id
@@ -60,7 +60,7 @@ resource "aws_iam_role_policy" "ecs_service_role_policy" {
 # Instance role by including this profile during configuration.
 # ------------------------------------------------------------------------------
 resource "aws_iam_instance_profile" "ecs" {
-  count = var.single_cluster_account ? 1 : 0
+  count = var.single_cluster_account
   name  = "ecs_instance_profile"
   path  = "/"
   role  = aws_iam_role.ecs_instance_role[0].name
@@ -75,7 +75,7 @@ resource "aws_iam_instance_profile" "ecs" {
 # Used by ECS Container Instance to create and access log groups and streams.
 #-------------------------------------------------------------------------------
 resource "aws_iam_policy" "ecs_cloudwatch_logs" {
-  count       = var.single_cluster_account ? 1 : 0
+  count       = var.single_cluster_account
   name        = "ecs_cloudwatch_logs"
   description = "ECS CloudWatch Logs Policy"
   policy      = file("${path.module}/policies/ecs-cloudwatch-logs.json")

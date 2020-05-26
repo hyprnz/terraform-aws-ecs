@@ -15,7 +15,7 @@ resource "aws_ecs_cluster" "ecs" {
 # S3 bucket that holds the ECS Cluster configuration
 #-------------------------------------------------------------------------------
 resource "aws_s3_bucket" "ecs_config" {
-  bucket        = "ecs-config-${var.env}"
+  bucket        = "ecs-config-${var.env}-${data.aws_caller_identity.current.account_id}"
   force_destroy = true
 
   versioning {
@@ -41,14 +41,14 @@ resource "aws_s3_bucket_object" "ecs_config" {
 #-------------------------------------------------------------------------------
 resource "aws_launch_configuration" "ecs" {
   #count                = "${1 - var.workers_spotfleet}"
-  count         = var.workers_spotfleet == 1 && var.create_worker_cluster == 1 ? 1 : 0
+  count         = var.workers_spotfleet == 0 && var.create_worker_cluster == 1 ? 1 : 0
   name_prefix   = "ECS-${var.cluster_name}-"
   image_id      = data.aws_ami.ecs_optimized_ami.id
   instance_type = var.instance_type
 
   # Note splat syntax fix in 0.12
   # https://github.com/hashicorp/terraform/issues/11574
-  iam_instance_profile = var.single_cluster_account ? join("", aws_iam_instance_profile.ecs.*.name) : var.iam_instance_profile_name
+  iam_instance_profile = var.single_cluster_account == 1 ? join("", aws_iam_instance_profile.ecs.*.name) : var.iam_instance_profile_name
 
   # key_name        = var.single_cluster_account ? join("", aws_key_pair.ecs.*.key_name) : var.iam_key_pair_name
   security_groups = [aws_security_group.ecs.id]
@@ -90,7 +90,7 @@ resource "aws_launch_configuration" "ecs_kafka" {
 # ECS EC2 AUTOSCALING GROUP 
 #-------------------------------------------------------------------------------
 resource "aws_autoscaling_group" "ecs" {
-  count                = var.workers_spotfleet == 1 && var.create_worker_cluster == 1 ? 1 : 0
+  count                = var.workers_spotfleet == 0 && var.create_worker_cluster == 1 ? 1 : 0
   name                 = var.env == "prod" ? "ecs-asg" : "ecs-asg-${var.env}"
   launch_configuration = aws_launch_configuration.ecs[0].name
   vpc_zone_identifier  = data.aws_subnet_ids.default.ids
