@@ -37,7 +37,8 @@ variable "iam_instance_profile_name" {
 #-------------------------------------------------------------------------------
 variable "use_efs_volumes" {
   description = "Should the Cluster use/create EFS volumes for use with containers"
-  default     = false
+  type        = number
+  default     = 0
 }
 
 variable "kafka_root_block_device_volume_size" {
@@ -47,7 +48,8 @@ variable "kafka_root_block_device_volume_size" {
 
 variable "workers_spotfleet" {
   description = "Should the worker instances utilise Spot Fleet"
-  default     = false
+  type        = number
+  default     = 0
 }
 
 # Only need to set this if using Workers Spot Fleet
