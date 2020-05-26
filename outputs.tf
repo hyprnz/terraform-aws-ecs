@@ -40,15 +40,15 @@ output "ecs_config_bucket_region" {
   value = aws_s3_bucket.ecs_config.region
 }
 
-output "ecs_config.id" {
+output "ecs_config_id" {
   value = aws_s3_bucket_object.ecs_config.id
 }
 
-output "ecs_config.etag" {
+output "ecs_config_etag" {
   value = aws_s3_bucket_object.ecs_config.etag
 }
 
-output "ecs_config.version_id" {
+output "ecs_config_version_id" {
   value = aws_s3_bucket_object.ecs_config.version_id
 }
 
