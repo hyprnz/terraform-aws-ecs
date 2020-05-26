@@ -17,26 +17,26 @@ data "aws_vpc" "ecs" {
 data "aws_subnet_ids" "default" {
   vpc_id = data.aws_vpc.ecs.id
 
-  tags = {
-    Tier        = "Private"
-    M5Available = "True"
-  }
+  //tags = {
+  //  Tier        = "Private"
+  //  M5Available = "True"
+  //}
 }
 
 data "aws_subnet_ids" "kafka" {
   vpc_id = data.aws_vpc.ecs.id
 
-  tags = {
-    Tier = "Private"
-  }
+  //tags = {
+  //  Tier = "Private"
+  //}
 }
 
 data "aws_subnet_ids" "private" {
   vpc_id = data.aws_vpc.ecs.id
 
-  tags = {
-    Tier = "Private"
-  }
+  //tags = {
+  //  Tier = "Private"
+  //}
 }
 
 # ----------------------------------------------------------------------------
