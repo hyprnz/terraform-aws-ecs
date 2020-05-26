@@ -18,7 +18,7 @@ resource "aws_efs_file_system" "ecs_volumes" {
 # otherwise the value of count will be 0 and no mount targets will be created.
 #-------------------------------------------------------------------------------
 resource "aws_efs_mount_target" "ecs_volumes" {
-  count           = var.use_efs_volumes ? 3 : 0
+  count           = var.use_efs_volumes == 1 ? 3 : 0
   file_system_id  = aws_efs_file_system.ecs_volumes[0].id
   subnet_id       = element(sort(data.aws_subnet_ids.private.ids), count.index)
   security_groups = [aws_security_group.ecs_efs[0].id]

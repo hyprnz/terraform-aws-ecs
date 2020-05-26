@@ -50,7 +50,7 @@ resource "aws_launch_configuration" "ecs" {
   # https://github.com/hashicorp/terraform/issues/11574
   iam_instance_profile = var.single_cluster_account ? join("", aws_iam_instance_profile.ecs.*.name) : var.iam_instance_profile_name
 
-  key_name        = var.single_cluster_account ? join("", aws_key_pair.ecs.*.key_name) : var.iam_key_pair_name
+  # key_name        = var.single_cluster_account ? join("", aws_key_pair.ecs.*.key_name) : var.iam_key_pair_name
   security_groups = [aws_security_group.ecs.id]
   user_data       = data.template_file.ecs_instance_user_data.rendered
 
