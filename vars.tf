@@ -2,12 +2,14 @@
 #--------
 variable "single_cluster_account" {
   description = "Whether this account contains a single ECS Cluster"
-  default     = true
+  type        = number
+  default     = 1
 }
 
 variable "create_worker_cluster" {
   description = "Whether to create a Worker Cluster"
-  default     = true
+  type        = number
+  default     = 1
 }
 
 #-------------------------------------------------------------------------------
@@ -73,7 +75,8 @@ variable "key_file" {
 #------------------------------------------------------------------------------
 variable "create_kafka_cluster" {
   description = "Determine if a Kafka cluster should exist in an environment"
-  default     = false
+  type        = number
+  default     = 0
 }
 
 variable "asg_min_size" {
