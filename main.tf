@@ -90,7 +90,7 @@ resource "aws_launch_configuration" "ecs_kafka" {
 # ECS EC2 AUTOSCALING GROUP 
 #-------------------------------------------------------------------------------
 resource "aws_autoscaling_group" "ecs" {
-  count                = false == var.workers_spotfleet && var.create_worker_cluster ? 1 : 0
+  count                = var.workers_spotfleet == 1 && var.create_worker_cluster == 1 ? 1 : 0
   name                 = var.env == "prod" ? "ecs-asg" : "ecs-asg-${var.env}"
   launch_configuration = aws_launch_configuration.ecs[0].name
   vpc_zone_identifier  = data.aws_subnet_ids.default.ids
