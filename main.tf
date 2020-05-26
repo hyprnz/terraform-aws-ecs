@@ -41,7 +41,7 @@ resource "aws_s3_bucket_object" "ecs_config" {
 #-------------------------------------------------------------------------------
 resource "aws_launch_configuration" "ecs" {
   #count                = "${1 - var.workers_spotfleet}"
-  count         = false == var.workers_spotfleet && var.create_worker_cluster ? 1 : 0
+  count         = var.workers_spotfleet == 1 && var.create_worker_cluster == 1 ? 1 : 0
   name_prefix   = "ECS-${var.cluster_name}-"
   image_id      = data.aws_ami.ecs_optimized_ami.id
   instance_type = var.instance_type
