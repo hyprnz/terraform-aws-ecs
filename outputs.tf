@@ -9,6 +9,10 @@ output "cluster_id" {
   value = aws_ecs_cluster.ecs.id
 }
 
+output "cluster_arn" {
+  value = aws_ecs_cluster.ecs.arn
+}
+
 output "single_cluster_account" {
   value = var.single_cluster_account == true ? "Single cluster account" : "Multi cluster account"
 }
